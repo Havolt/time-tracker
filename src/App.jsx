@@ -6,21 +6,31 @@ function App() {
 	const [timePassed, setTimePassed] = useState(0)
 	const [startTimer, setStartTimer] = useState(false)
 
+	let timePassedInterval;
+
 	useEffect(() => {
-		let interval;
 		if (startTimer) {
-			interval = setInterval(() => {
+			timePassedInterval = setInterval(() => {
 				setTimePassed(timePassed => timePassed + 1)
 			}, 1000)
 		}
-		return () => clearInterval(interval)
+		return () => clearInterval(timePassedInterval)
 	}, [startTimer, timePassed])
 
 	const handleTimer = () => {
-		if (!initTime) {
+		if (!startTimer) {
 			setInitTime(new Date())
 			setStartTimer(true)
+		} else {
+			clearInterval(timePassedInterval)
+			setStartTimer(false)
 		}
+	}
+
+	const saveTimer = () => {
+		setTimePassed(0)
+		setInitTime(null)
+		// TODO: Save time to local storage / extension storage
 	}
 
 	function formatTimePassed() {
@@ -32,9 +42,10 @@ function App() {
 
 	return (
 		<div id="app">
-			<div>
+			<div className="timer">
 				<span>{timePassed ? formatTimePassed() : '00:00:00'}</span>
-				<button onClick={handleTimer}>Go</button>
+				<button onClick={handleTimer}>{ startTimer ? 'Stop timer' : 'Start timer'}</button>
+				<button disabled={!timePassed || startTimer} onClick={saveTimer}>Save Time</button>
 			</div>
 		</div>
 	)
