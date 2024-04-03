@@ -31,8 +31,7 @@ function App() {
 	}
 
 	const saveTimer = () => {
-		setTimePassed(0)
-		setInitTime(null)
+		clearTimer()
 		// TODO: Save time to local storage / extension storage
 		spentTime.push({
 			time: timePassed,
@@ -41,11 +40,16 @@ function App() {
 		descriptionRef.current.value = ''
 	}
 
+	const clearTimer = () => {
+		setTimePassed(0)
+		setInitTime(null)
+	}
+
 	function formatTimePassed() {
-		const date = new Date(0);
-		date.setSeconds(timePassed);
-		const timeString = date.toISOString().substring(11, 19);
-		return timeString;
+		const date = new Date(0)
+		date.setSeconds(timePassed)
+		const timeString = date.toISOString().substring(11, 19)
+		return timeString
 	}
 
 	return (
@@ -54,7 +58,8 @@ function App() {
 				<span>{timePassed ? formatTimePassed() : '00:00:00'}</span>
 				<button onClick={handleTimer}>{ startTimer ? 'Stop timer' : 'Start timer'}</button>
 				<button disabled={!timePassed || startTimer} onClick={saveTimer}>Save Time</button>
-				<input type="text" ref={descriptionRef} placeholder="Description.." />
+				{ (!startTimer && timePassed) ? <button onClick={clearTimer} type="button">Clear Time</button> : null }
+				{ (!startTimer && timePassed) ? <input type="text" ref={descriptionRef} placeholder="Description.." /> : null }
 			</div>
 		</div>
 	)
