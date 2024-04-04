@@ -10,4 +10,33 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+
+  &__button {
+    &--start {
+      background-color: #2a702c7a;
+      color: white;
+
+      &:hover {
+        background-color: #2a702c;
+      }
+    }
+
+    &--clear {
+      background-color: #7212127a;
+      color: white;
+
+      &:hover {
+        background-color: #721212;
+      }
+    }
+
+    &--save {
+      background-color: #1832727a;
+      color: white;
+
+      &:hover {
+        background-color: #183272;
+      }
+    }
+  }
 }
