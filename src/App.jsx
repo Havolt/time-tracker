@@ -9,17 +9,19 @@ function App() {
 
 	const descriptionRef = useRef(null);
 
+	const timerPaused = !timePassed || startTimer;
+
 	let timePassedInterval;
 
 	const startTimerText = () => {
 		if (startTimer) {
-			return 'Stop timer'
-		} else if(!startTimer && timePassed) {
-			return 'Resume timer'
+			return 'Stop'
+		} else if (!startTimer && timePassed) {
+			return 'Resume'
 		} else {
-			return 'Start timer'
+			return 'Start'
 		}
-	
+
 	}
 
 	useEffect(() => {
@@ -64,11 +66,20 @@ function App() {
 	}
 
 	// HTML
-	const clearButton = <button onClick={clearTimer} class="timer__button--clear" type="button">Clear Time</button>
+	const clearButton = (
+		<button
+			onClick={clearTimer}
+			disabled={timerPaused}
+			class="timer__button--clear"
+			type="button"
+		>
+			Clear
+		</button>
+	)
 	const saveInput = (
 		<div class="timer__save">
-			<button disabled={!timePassed || startTimer} onClick={saveTimer} class="timer__button--save">Save Time</button>
 			<input type="text" ref={descriptionRef} placeholder="Description.." />
+			<button onClick={saveTimer} class="timer__button--save">Save</button>
 		</div>
 	)
 
@@ -76,17 +87,19 @@ function App() {
 		<div id="app">
 			<div className="timer">
 				<span>{timePassed ? formatTimePassed() : '00:00:00'}</span>
-				<button onClick={handleTimer} class="timer__button--start">
-					{ startTimerText() }
-				</button>
-				
-				{ (!startTimer && timePassed) ?
-				<>
+				<div class="timer__actions">
+					<button onClick={handleTimer} class="timer__button--start">
+						{startTimerText()}
+					</button>
 					{clearButton}
-					{saveInput}
-				</> : null
+				</div>
+
+				{(!startTimer && timePassed) ?
+					<>
+						{saveInput}
+					</> : null
 				}
-				
+
 			</div>
 		</div>
 	)

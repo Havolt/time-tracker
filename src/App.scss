@@ -6,10 +6,23 @@
 }
 
 .timer {
-  font-size: 1.8rem;
   display: flex;
+  flex-direction: column;
+  font-size: 1.8rem;
   gap: 1rem;
   align-items: center;
+
+  &__save {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
 
   &__button {
     &--start {
@@ -25,9 +38,21 @@
       background-color: #7212127a;
       color: white;
 
+      &[disabled] {
+        opacity: 0.4;
+      }
+
       &:hover {
         background-color: #721212;
+        
+        &[disabled] {
+          background-color: #7212127a;
+          cursor: unset;
+          border-color: transparent;
+        }
       }
+      // target disabled
+      
     }
 
     &--save {
