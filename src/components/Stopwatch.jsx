@@ -1,28 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 
-function Stopwatch({ }) {
+function Stopwatch({ saveSpentTime }) {
+   // State
    const [startTimer, setStartTimer] = useState(false)
    const [initTime, setInitTime] = useState(null)
-	const [timePassed, setTimePassed] = useState(0)
+   const [timePassed, setTimePassed] = useState(0)
 
-   const [spentTime, setSpentTime] = useState([])
+   // Refs
+   const descriptionRef = useRef(null);
 
-	const descriptionRef = useRef(null);
+   const timerPaused = !timePassed || startTimer;
 
-	const timerPaused = !timePassed || startTimer;
-
-	let timePassedInterval;
-
-	const saveTimer = () => {
-		clearTimer()
-		// TODO: Save time to local storage / extension storage
-		spentTime.push({
-			time: timePassed,
-			description: descriptionRef.current.value
-		})
-		descriptionRef.current.value = ''
-	}
-
+   let timePassedInterval;
    useEffect(() => {
       if (startTimer) {
          timePassedInterval = setInterval(() => {
@@ -32,6 +21,16 @@ function Stopwatch({ }) {
       return () => clearInterval(timePassedInterval)
    }, [startTimer, timePassed])
 
+   const saveTimer = () => {
+      clearTimer()
+      // TODO: Save time to local storage / extension storage
+      saveSpentTime(timePassed, descriptionRef.current.value)
+      descriptionRef.current.value = ''
+   }
+
+   /**
+       * @returns {string} Text for the timer control button.
+   */
    const startTimerText = () => {
       if (startTimer) {
          return 'Stop'
@@ -41,12 +40,19 @@ function Stopwatch({ }) {
          return 'Start'
       }
    }
-   
-   const clearTimer = () => {
-		setTimePassed(0)
-		setInitTime(null)
-	}
 
+   /**
+      * Resets the timer by setting time passed to 0 and initializing start time to null.
+   */
+   const clearTimer = () => {
+      setTimePassed(0)
+      setInitTime(null)
+   }
+
+   /**
+      * Handles the start and stop functionality of the timer.
+      * If the timer is stopped, it starts the timer and vice versa.
+   */
    const handleTimer = () => {
       if (!startTimer) {
          setInitTime(new Date())
@@ -57,36 +63,39 @@ function Stopwatch({ }) {
       }
    }
 
+   /**
+      * @returns {string} Formatted time string (HH:mm:ss).
+   */
    function formatTimePassed() {
-		const date = new Date(0)
-		date.setSeconds(timePassed)
-		const timeString = date.toISOString().substring(11, 19)
-		return timeString
-	}
+      const date = new Date(0)
+      date.setSeconds(timePassed)
+      const timeString = date.toISOString().substring(11, 19)
+      return timeString
+   }
 
    // HTML
    const clearButton = (
       <button
          onClick={clearTimer}
          disabled={timerPaused}
-         class="timer__button--clear"
+         className="timer__button--clear"
          type="button"
       >
          Clear
       </button>
    )
    const saveInput = (
-      <div class="timer__save">
+      <div className="timer__save">
          <input type="text" ref={descriptionRef} placeholder="Description.." />
-         <button onClick={saveTimer} class="timer__button--save">Save</button>
+         <button onClick={saveTimer} className="timer__button--save">Save</button>
       </div>
    )
 
    return (
       <div className="timer">
          <span>{timePassed ? formatTimePassed() : '00:00:00'}</span>
-         <div class="timer__actions">
-            <button onClick={handleTimer} class="timer__button--start">
+         <div className="timer__actions">
+            <button onClick={handleTimer} className="timer__button--start">
                {startTimerText()}
             </button>
             {clearButton}
