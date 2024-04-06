@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import './Stopwatch.scss'
 
 function Stopwatch({ saveSpentTime }) {
    // State
