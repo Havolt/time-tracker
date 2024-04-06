@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { formatHumanReadableTime } from '../helpers/time'
 import './Stopwatch.scss'
 
 function Stopwatch({ saveSpentTime }) {
@@ -64,16 +65,6 @@ function Stopwatch({ saveSpentTime }) {
       }
    }
 
-   /**
-      * @returns {string} Formatted time string (HH:mm:ss).
-   */
-   function formatTimePassed() {
-      const date = new Date(0)
-      date.setSeconds(timePassed)
-      const timeString = date.toISOString().substring(11, 19)
-      return timeString
-   }
-
    // HTML
    const clearButton = (
       <button
@@ -94,7 +85,7 @@ function Stopwatch({ saveSpentTime }) {
 
    return (
       <div className="timer">
-         <span>{timePassed ? formatTimePassed() : '00:00:00'}</span>
+         <span>{timePassed ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
          <div className="timer__actions">
             <button onClick={handleTimer} className="timer__button--start">
                {startTimerText()}
