@@ -7,7 +7,7 @@ function App() {
 	const [spentTime, setSpentTime] = useState([])
 
 	const saveSpentTime = (time, description) => {
-		setSpentTime([...spentTime, { time, description }])
+		setSpentTime([...spentTime, { time, description, timeSavedAt: new Date().getTime() }])
 	}
 
 	return (
