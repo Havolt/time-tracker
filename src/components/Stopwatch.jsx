@@ -7,6 +7,7 @@ function Stopwatch({ saveSpentTime }) {
    const [startTimer, setStartTimer] = useState(false)
    const [initTime, setInitTime] = useState(null)
    const [timePassed, setTimePassed] = useState(0)
+   const [saveRequested, setSaveRequested] = useState(false)
 
    // Refs
    const descriptionRef = useRef(null);
@@ -24,10 +25,16 @@ function Stopwatch({ saveSpentTime }) {
    }, [startTimer, timePassed])
 
    const saveTimer = () => {
-      clearTimer()
-      // TODO: Save time to local storage / extension storage
-      saveSpentTime(timePassed, descriptionRef.current.value)
-      descriptionRef.current.value = ''
+      if(saveRequested) {
+         clearTimer()
+         // TODO: Save time to local storage / extension storage
+         saveSpentTime(timePassed, descriptionRef.current.value)
+         descriptionRef.current.value = ''
+         setSaveRequested(false)
+      } else {
+         console.log('setting save state')
+         setSaveRequested(true)
+      }
    }
 
    /**
@@ -76,12 +83,6 @@ function Stopwatch({ saveSpentTime }) {
          Clear
       </button>
    )
-   const saveInput = (
-      <div className="timer__save">
-         <input type="text" ref={descriptionRef} placeholder="Description.." />
-         <button onClick={saveTimer} className="timer__button--save">Save</button>
-      </div>
-   )
 
    return (
       <div className="timer">
@@ -93,11 +94,22 @@ function Stopwatch({ saveSpentTime }) {
             {clearButton}
          </div>
 
-         {(!startTimer && timePassed) ?
-            <>
-               {saveInput}
-            </> : null
-         }
+         <div className="timer__save">
+            { saveRequested && 
+               <input 
+                  type="text" 
+                  ref={descriptionRef}
+                  placeholder="Description.." 
+               />
+            }
+            <button 
+               onClick={saveTimer} 
+               className="timer__button--save"
+               disabled={timerPaused}
+            >
+               Save
+            </button>
+         </div>
       </div>
    )
 }
