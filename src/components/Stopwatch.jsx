@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatHumanReadableTime } from '../helpers/time'
 import './Stopwatch.scss'
 
@@ -10,7 +11,7 @@ function Stopwatch({ saveSpentTime }) {
    const [saveRequested, setSaveRequested] = useState(false)
 
    // Refs
-   const descriptionRef = useRef(null);
+   const descriptionRef = useRef(null)
 
    const timerPaused = !timePassed || startTimer;
 
@@ -32,7 +33,6 @@ function Stopwatch({ saveSpentTime }) {
          descriptionRef.current.value = ''
          setSaveRequested(false)
       } else {
-         console.log('setting save state')
          setSaveRequested(true)
       }
    }
@@ -89,7 +89,7 @@ function Stopwatch({ saveSpentTime }) {
          <span>{timePassed ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
          <div className="timer__actions">
             <button onClick={handleTimer} className="timer__button--start">
-               {startTimerText()}
+               <FontAwesomeIcon icon="fa-solid fa-play" />
             </button>
             {clearButton}
          </div>
