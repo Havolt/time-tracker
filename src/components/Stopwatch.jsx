@@ -56,6 +56,7 @@ function Stopwatch({ saveSpentTime }) {
    const clearTimer = () => {
       setTimePassed(0)
       setInitTime(null)
+      setSaveRequested(false)
    }
 
    /**
@@ -80,7 +81,7 @@ function Stopwatch({ saveSpentTime }) {
          className="timer__button--clear"
          type="button"
       >
-         Clear
+         <FontAwesomeIcon icon="fa-solid fa-trash" />
       </button>
    )
 
@@ -107,7 +108,7 @@ function Stopwatch({ saveSpentTime }) {
                className="timer__button--save"
                disabled={timerPaused}
             >
-               Save
+               <FontAwesomeIcon icon="fa-solid fa-floppy-disk" />
             </button>
          </div>
       </div>
