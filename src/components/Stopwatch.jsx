@@ -7,13 +7,14 @@ function Stopwatch({ saveSpentTime }) {
    // State
    const [startTimer, setStartTimer] = useState(false)
    const [initTime, setInitTime] = useState(null)
-   const [timePassed, setTimePassed] = useState(0)
+   const [timePassed, setTimePassed] = useState(-1)
    const [saveRequested, setSaveRequested] = useState(false)
 
    // Refs
    const descriptionRef = useRef(null)
 
    const timerPaused = !timePassed || startTimer;
+   const timerPlaying = timePassed >= 0 && startTimer;
 
    let timePassedInterval;
    useEffect(() => {
@@ -38,19 +39,6 @@ function Stopwatch({ saveSpentTime }) {
    }
 
    /**
-       * @returns {string} Text for the timer control button.
-   */
-   const startTimerText = () => {
-      if (startTimer) {
-         return 'Stop'
-      } else if (!startTimer && timePassed) {
-         return 'Resume'
-      } else {
-         return 'Start'
-      }
-   }
-
-   /**
       * Resets the timer by setting time passed to 0 and initializing start time to null.
    */
    const clearTimer = () => {
@@ -67,6 +55,7 @@ function Stopwatch({ saveSpentTime }) {
       if (!startTimer) {
          setInitTime(new Date())
          setStartTimer(true)
+         setTimePassed(0)
       } else {
          clearInterval(timePassedInterval)
          setStartTimer(false)
@@ -87,10 +76,12 @@ function Stopwatch({ saveSpentTime }) {
 
    return (
       <div className="timer">
-         <span>{timePassed ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
+         <span>{timePassed >=0 ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
          <div className="timer__actions">
             <button onClick={handleTimer} className="timer__button--start">
-               <FontAwesomeIcon icon="fa-solid fa-play" />
+               { timerPlaying ? <FontAwesomeIcon icon="fa-solid fa-pause" /> : <FontAwesomeIcon icon="fa-solid fa-play" /> }
+
+               
             </button>
             {clearButton}
          </div>
