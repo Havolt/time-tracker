@@ -5,12 +5,43 @@
   align-items: center;
 
   &__save {
+    position: relative;
     display: flex;
     gap: 1rem;
     align-items: center;
 
+    input {
+      min-height: 30px;
+      font-size: 2rem;
+    }
+
     input.invalid {
       border-color: #720000;
+      border-style: solid;
+      position: relative;
+    }
+  }
+
+  &__save-warning {
+    position: absolute;
+    bottom: 4rem;
+    background-color: #222222;
+    border: 1px solid #793030;
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: #e6e6e6;
+    
+    &::after {
+      background-color: #222222;
+      border-bottom: 1px solid #793030;;
+      border-right: 1px solid #793030;;
+      content: '';
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      transform: rotate(45deg)
     }
   }
 

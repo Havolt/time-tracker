@@ -50,6 +50,7 @@ function Stopwatch({ saveSpentTime }) {
       setTimePassed(0)
       setInitTime(null)
       setSaveRequested(false)
+      setInvalidSave(false)
    }
 
    /**
@@ -85,8 +86,6 @@ function Stopwatch({ saveSpentTime }) {
          <div className="timer__actions">
             <button onClick={handleTimer} className="timer__button--start">
                { timerPlaying ? <FontAwesomeIcon icon="fa-solid fa-pause" /> : <FontAwesomeIcon icon="fa-solid fa-play" /> }
-
-               
             </button>
             {clearButton}
          </div>
@@ -100,6 +99,7 @@ function Stopwatch({ saveSpentTime }) {
                   className={`${invalidSave ? 'invalid': ''}`}
                />
             }
+            { invalidSave && <div className="timer__save-warning">Please enter a description</div> }
             <button 
                onClick={saveTimer} 
                className="timer__button--save"
