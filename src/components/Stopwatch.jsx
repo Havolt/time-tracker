@@ -9,6 +9,7 @@ function Stopwatch({ saveSpentTime }) {
    const [initTime, setInitTime] = useState(null)
    const [timePassed, setTimePassed] = useState(-1)
    const [saveRequested, setSaveRequested] = useState(false)
+   const [invalidSave, setInvalidSave] = useState(false)
 
    // Refs
    const descriptionRef = useRef(null)
@@ -27,14 +28,18 @@ function Stopwatch({ saveSpentTime }) {
    }, [startTimer, timePassed])
 
    const saveTimer = () => {
-      if(saveRequested) {
+      if(saveRequested && descriptionRef.current.value.length > 0) {
          clearTimer()
          // TODO: Save time to local storage / extension storage
          saveSpentTime(timePassed, descriptionRef.current.value)
          descriptionRef.current.value = ''
          setSaveRequested(false)
+         setInvalidSave(false)
+      } else if(saveRequested) {
+         setInvalidSave(true)
       } else {
          setSaveRequested(true)
+         setInvalidSave(false)
       }
    }
 
@@ -91,7 +96,8 @@ function Stopwatch({ saveSpentTime }) {
                <input 
                   type="text" 
                   ref={descriptionRef}
-                  placeholder="Description.." 
+                  placeholder="Description.."
+                  className={`${invalidSave ? 'invalid': ''}`}
                />
             }
             <button 

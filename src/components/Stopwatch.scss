@@ -8,6 +8,10 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+
+    input.invalid {
+      border-color: #720000;
+    }
   }
 
   &__actions {
