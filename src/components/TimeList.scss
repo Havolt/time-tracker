@@ -6,6 +6,7 @@
    &__item {
       display: flex;
       justify-content: space-between;
+      opacity: 0;
 
       &:nth-child(odd) {
          background-color: #313131;
@@ -13,6 +14,16 @@
 
       &:nth-child(even) {
          background-color: #242424;
+      }
+
+      // Transition
+      &-appear {
+         opacity: 1;
+         transition: opacity 200ms;
+      }
+
+      &-appear-done {
+         opacity: 1;
       }
    }
 }

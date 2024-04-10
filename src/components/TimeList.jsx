@@ -1,19 +1,21 @@
 import React from 'react'
 import { formatHumanReadableTime } from '../helpers/time'
+import { CSSTransition } from 'react-transition-group';
+
 
 import './TimeList.scss'
 
 function TimeList({ savedTimes }) {
 
-   
-   console.log(savedTimes[0])
   return (
     <div className="time-list">
       { savedTimes.map(savedTime => (
-         <div className="time-list__item" key={savedTime.timeSavedAt}>
-            <span>{savedTime.description}</span>
-            <span>{formatHumanReadableTime(savedTime.time)}</span>
-         </div>
+        <CSSTransition key={savedTime.timeSavedAt} in={true} timeout={200} classNames="time-list__item" appear={true}>
+          <div className="time-list__item" >
+              <span>{savedTime.description}</span>
+              <span>{formatHumanReadableTime(savedTime.time)}</span>
+          </div>
+        </CSSTransition>
       ))
       }
     </div>
