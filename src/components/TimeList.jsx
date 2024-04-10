@@ -8,9 +8,9 @@ function TimeList({ savedTimes }) {
    
    console.log(savedTimes[0])
   return (
-    <div class="time-list">
+    <div className="time-list">
       { savedTimes.map(savedTime => (
-         <div class="time-list__item" key={savedTime.timeSavedAt}>
+         <div className="time-list__item" key={savedTime.timeSavedAt}>
             <span>{savedTime.description}</span>
             <span>{formatHumanReadableTime(savedTime.time)}</span>
          </div>

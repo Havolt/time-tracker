@@ -80,6 +80,12 @@ function Stopwatch({ saveSpentTime }) {
       </button>
    )
 
+   const handleInput = (event) => {
+      if(invalidSave && event.target.val !== '') {
+         setInvalidSave(false)
+      }
+   }
+
    return (
       <div className="timer">
          <span>{timePassed >=0 ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
@@ -97,6 +103,7 @@ function Stopwatch({ saveSpentTime }) {
                   ref={descriptionRef}
                   placeholder="Description.."
                   className={`${invalidSave ? 'invalid': ''}`}
+                  onChange={(e) => handleInput(e)}
                />
             }
             { invalidSave && <div className="timer__save-warning">Please enter a description</div> }
