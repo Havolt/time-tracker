@@ -94,33 +94,37 @@ function Stopwatch({ saveSpentTime }) {
 
    return (
       <div className="timer">
-         <span>{timePassed >=0 ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
-         <div className="timer__actions">
-            <button onClick={handleTimer} className="timer__button--start">
-               { timerPlaying ? <FontAwesomeIcon icon="fa-solid fa-pause" /> : <FontAwesomeIcon icon="fa-solid fa-play" /> }
-            </button>
-            {clearButton}
-         </div>
-
-         <div className="timer__save">
+         <div class="timer__input">
+            { invalidSave && <div className="timer__input-warning">Please enter a description</div> }
             { saveRequested && 
-               <input 
-                  type="text" 
-                  ref={descriptionRef}
-                  placeholder="Description.."
-                  className={`${invalidSave ? 'invalid': ''}`}
-                  onChange={handleInputChange}
-                  onKeyDown={submitSaveTimer}
-               />
+                  <input 
+                     type="text" 
+                     ref={descriptionRef}
+                     placeholder="Description.."
+                     className={`${invalidSave ? 'invalid': ''}`}
+                     onChange={handleInputChange}
+                     onKeyDown={submitSaveTimer}
+                  />
             }
-            { invalidSave && <div className="timer__save-warning">Please enter a description</div> }
-            <button 
-               onClick={saveTimer} 
-               className="timer__button--save"
-               disabled={timerPaused}
-            >
-               <FontAwesomeIcon icon="fa-solid fa-floppy-disk" />
-            </button>
+         </div>
+         <div class="timer__buttons">
+            <span>{timePassed >=0 ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
+            <div className="timer__actions">
+               <button onClick={handleTimer} className="timer__button--start">
+                  { timerPlaying ? <FontAwesomeIcon icon="fa-solid fa-pause" /> : <FontAwesomeIcon icon="fa-solid fa-play" /> }
+               </button>
+               {clearButton}
+            </div>
+
+            <div className="timer__save">
+               <button 
+                  onClick={saveTimer} 
+                  className="timer__button--save"
+                  disabled={timerPaused}
+               >
+                  <FontAwesomeIcon icon="fa-solid fa-floppy-disk" />
+               </button>
+            </div>
          </div>
       </div>
    )
