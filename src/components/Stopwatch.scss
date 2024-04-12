@@ -8,6 +8,7 @@
     position: absolute;
     width: 100%;
     top: -3rem;
+    padding: 0 .2rem;
 
     input {
       width: 100%;
@@ -45,6 +46,10 @@
     gap: 1rem;
     align-items: center;
     padding: 0.4rem;
+
+    button {
+      width: 3.5rem;
+    }
   }
 
   &__save {
