@@ -68,18 +68,6 @@ function Stopwatch({ saveSpentTime }) {
       }
    }
 
-   // HTML
-   const clearButton = (
-      <button
-         onClick={clearTimer}
-         disabled={timerPaused}
-         className="timer__button--clear"
-         type="button"
-      >
-         <FontAwesomeIcon icon="fa-solid fa-trash" />
-      </button>
-   )
-
    const handleInputChange = (event) => {
       if(invalidSave && event.target.val !== '') {
          setInvalidSave(false)
@@ -91,6 +79,23 @@ function Stopwatch({ saveSpentTime }) {
          saveTimer()
       }
    }
+
+   // HTML
+   const playButtonIcon = timerPlaying ? 'pause' : 'play'
+   const stopButtonIcon = saveRequested ? 'undo' : 'trash'
+
+   const clearButton = (
+      <button
+         onClick={clearTimer}
+         disabled={timerPaused}
+         className="timer__button--clear"
+         type="button"
+      >
+         <FontAwesomeIcon icon={`fa-solid fa-${stopButtonIcon}`} />
+      </button>
+   )
+
+   
 
    return (
       <div className="timer">
@@ -111,7 +116,7 @@ function Stopwatch({ saveSpentTime }) {
             <span>{timePassed >=0 ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
             <div className="timer__actions">
                <button onClick={handleTimer} className="timer__button--start">
-                  { timerPlaying ? <FontAwesomeIcon icon="fa-solid fa-pause" /> : <FontAwesomeIcon icon="fa-solid fa-play" /> }
+                  <FontAwesomeIcon icon={`fa-solid fa-${playButtonIcon}`} />
                </button>
                {clearButton}
             </div>
