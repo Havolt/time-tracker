@@ -86,6 +86,16 @@
 
       &:hover {
         background-color: #2a702c;
+
+        &[disabled] {
+          background-color: #2a702c7a;
+          cursor: default;
+          border-color: transparent;
+        }
+      }
+
+      &[disabled] {
+        opacity: 0.4;
       }
     }
 

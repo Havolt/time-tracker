@@ -53,6 +53,10 @@ function Stopwatch({ saveSpentTime }) {
       setInvalidSave(false)
    }
 
+   const revertSaveRequested = () => {
+      setSaveRequested(false)
+   }
+
    /**
       * Handles the start and stop functionality of the timer.
       * If the timer is stopped, it starts the timer and vice versa.
@@ -61,7 +65,6 @@ function Stopwatch({ saveSpentTime }) {
       if (!startTimer) {
          setInitTime(new Date())
          setStartTimer(true)
-         setTimePassed(0)
       } else {
          clearInterval(timePassedInterval)
          setStartTimer(false)
@@ -86,7 +89,7 @@ function Stopwatch({ saveSpentTime }) {
 
    const clearButton = (
       <button
-         onClick={clearTimer}
+         onClick={saveRequested ? revertSaveRequested : clearTimer}
          disabled={timerPaused}
          className="timer__button--clear"
          type="button"
@@ -115,7 +118,11 @@ function Stopwatch({ saveSpentTime }) {
          <div class="timer__buttons">
             <span>{timePassed >=0 ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
             <div className="timer__actions">
-               <button onClick={handleTimer} className="timer__button--start">
+               <button 
+                  onClick={handleTimer} 
+                  className="timer__button--start"
+                  disabled={saveRequested}
+               >
                   <FontAwesomeIcon icon={`fa-solid fa-${playButtonIcon}`} />
                </button>
                {clearButton}
