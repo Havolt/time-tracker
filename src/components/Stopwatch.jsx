@@ -6,8 +6,7 @@ import './Stopwatch.scss'
 function Stopwatch({ saveSpentTime }) {
    // State
    const [startTimer, setStartTimer] = useState(false)
-   const [initTime, setInitTime] = useState(null)
-   const [timePassed, setTimePassed] = useState(-1)
+   const [timePassed, setTimePassed] = useState(0)
    const [saveRequested, setSaveRequested] = useState(false)
    const [invalidSave, setInvalidSave] = useState(false)
 
@@ -48,7 +47,6 @@ function Stopwatch({ saveSpentTime }) {
    */
    const clearTimer = () => {
       setTimePassed(0)
-      setInitTime(null)
       setSaveRequested(false)
       setInvalidSave(false)
    }
@@ -63,7 +61,6 @@ function Stopwatch({ saveSpentTime }) {
    */
    const handleTimer = () => {
       if (!startTimer) {
-         setInitTime(new Date())
          setStartTimer(true)
       } else {
          clearInterval(timePassedInterval)
