@@ -23,12 +23,12 @@
       }
 
       // Transition
-      &-appear {
+      &-enter {
          opacity: 1;
          transition: opacity 200ms;
       }
 
-      &-appear-done {
+      &-enter-done {
          opacity: 1;
       }
    }
