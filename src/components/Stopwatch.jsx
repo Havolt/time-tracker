@@ -99,7 +99,7 @@ function Stopwatch({ saveSpentTime }) {
 
    return (
       <div className="timer">
-         <div class="timer__input">
+         <div className="timer__input">
             { invalidSave && <div className="timer__input-warning">Please enter a description</div> }
             { saveRequested && 
                   <input 
@@ -112,7 +112,7 @@ function Stopwatch({ saveSpentTime }) {
                   />
             }
          </div>
-         <div class="timer__buttons">
+         <div className="timer__buttons">
             <span>{timePassed >=0 ? formatHumanReadableTime(timePassed) : '00:00:00'}</span>
             <div className="timer__actions">
                <button 

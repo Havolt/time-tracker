@@ -5,7 +5,7 @@ import './SiteHeader.scss'
 function SiteHeader() {
   return (
     <header className="site-header">
-      <span>Time Trak</span>
+      <span>Time Trekker</span>
    </header>
   )
 }

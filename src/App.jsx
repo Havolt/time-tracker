@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import Stopwatch from './components/Stopwatch'
+
+import SiteHelmet from './components/SiteHelmet'
 import TimeList from './components/TimeList'
 import SiteHeader from './components/SiteHeader'
+import Stopwatch from './components/Stopwatch'
+
 import './App.scss'
 
 function App() {
@@ -13,6 +16,7 @@ function App() {
 
 	return (
 		<div id="app">
+			<SiteHelmet />
 			<SiteHeader />
 			<TimeList savedTimes={spentTime} />
 			<Stopwatch saveSpentTime={saveSpentTime} />
