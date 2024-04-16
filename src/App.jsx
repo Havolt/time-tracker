@@ -11,7 +11,14 @@ function App() {
 	const [spentTime, setSpentTime] = useState([])
 
 	const saveSpentTime = (time, description) => {
-		setSpentTime([...spentTime, { time, description, timeSavedAt: new Date().getTime() }])
+		// Save to state
+		const newTime = { time, description, timeSavedAt: new Date().getTime() };
+		setSpentTime([...spentTime, newTime])
+		// Save to local storage (need to move to chrome storage)
+		const localStorageArr = JSON.parse(localStorage.getItem("timeArray")) || {savedTimes: []}
+		localStorage.setItem("timeArray", JSON.stringify(
+			{ savedTimes: [...localStorageArr.savedTimes, newTime] }
+		))
 	}
 
 	return (
