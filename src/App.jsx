@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import SiteHelmet from './components/SiteHelmet'
 import TimeList from './components/TimeList'
@@ -9,6 +9,15 @@ import './App.scss'
 
 function App() {
 	const [spentTime, setSpentTime] = useState([])
+
+	useEffect(() => {
+	  const localStorageTimes = JSON.parse(localStorage.getItem("timeArray"));
+
+	  if(localStorageTimes?.savedTimes) {
+		setSpentTime(localStorageTimes.savedTimes)
+	  }
+	}, [])
+	
 
 	const saveSpentTime = (time, description) => {
 		// Save to state
