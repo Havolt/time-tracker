@@ -13,10 +13,10 @@ function Stopwatch({ saveSpentTime }) {
    // Refs
    const descriptionRef = useRef(null)
 
-   const timerPaused = !timePassed || startTimer;
-   const timerPlaying = timePassed >= 0 && startTimer;
+   const timerPaused = !timePassed || startTimer
+   const timerPlaying = timePassed >= 0 && startTimer
 
-   let timePassedInterval;
+   let timePassedInterval
    useEffect(() => {
       if (startTimer) {
          timePassedInterval = setInterval(() => {
@@ -25,6 +25,16 @@ function Stopwatch({ saveSpentTime }) {
       }
       return () => clearInterval(timePassedInterval)
    }, [startTimer, timePassed])
+
+   const highlightInput = () => {
+      setTimeout(() => {
+         if(descriptionRef.current) {
+            descriptionRef.current.focus()
+         } else {
+            highlightInput()
+         }
+      }, 5)
+   }
 
    const saveTimer = () => {
       if(saveRequested && descriptionRef.current.value.length > 0) {
@@ -39,6 +49,7 @@ function Stopwatch({ saveSpentTime }) {
       } else {
          setSaveRequested(true)
          setInvalidSave(false)
+         highlightInput()
       }
    }
 
