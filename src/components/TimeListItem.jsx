@@ -1,8 +1,12 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group';
 
 function TimeListItem({key, description, time}) {
-   const nodeRef= useRef();
+   // TODO: Add an information icon on hover. When clicked the timer expands to show delete and modify buttons.
+   const nodeRef= useRef()
+
+   const [isHovered, setIsHovered] = useState(false)
+
   return (
       <CSSTransition
          in={true}
@@ -12,7 +16,9 @@ function TimeListItem({key, description, time}) {
       >
          <div
             ref={nodeRef}
-            className="time-list__item"
+            className={`time-list__item ${ isHovered ? 'time-list__item--hover' : ''}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
          >
             <span>{description}</span>
             <span>{time}</span>
