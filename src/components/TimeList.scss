@@ -5,6 +5,7 @@
    padding: 0.1rem;
    align-items: center;
    overflow: auto;
+   position: relative;
    
    &__item {
       display: flex;
@@ -38,5 +39,10 @@
       &-enter-done {
          opacity: 1;
       }
+   }
+
+   &__options {
+      position:absolute;
+      right: 0;
    }
 }

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function TimeListItem({key, description, time}) {
    // TODO: Add an information icon on hover. When clicked the timer expands to show delete and modify buttons.
@@ -22,6 +23,9 @@ function TimeListItem({key, description, time}) {
          >
             <span>{description}</span>
             <span>{time}</span>
+            <div class={'time-list__options'}>
+               <FontAwesomeIcon icon={`fa-solid fa-ellipsis`} />
+            </div>
          </div>
       </CSSTransition>
   )
