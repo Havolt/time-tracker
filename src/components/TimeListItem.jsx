@@ -8,6 +8,10 @@ function TimeListItem({key, description, time}) {
 
    const [isHovered, setIsHovered] = useState(false)
 
+   const openOptions = () => {
+      console.log('open options');
+   }
+
   return (
       <CSSTransition
          in={true}
@@ -21,11 +25,18 @@ function TimeListItem({key, description, time}) {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
          >
-            <span>{description}</span>
-            <span>{time}</span>
-            <div class={'time-list__options'}>
-               <FontAwesomeIcon icon={`fa-solid fa-ellipsis`} />
+            <div className="time-list__main">
+               <span>{description}</span>
+               <span>{time}</span>
             </div>
+            { isHovered && 
+               <button
+                  onClick={openOptions}
+                  className={'time-list__options'}
+               >
+                  <FontAwesomeIcon icon={`fa-solid fa-ellipsis`} />
+               </button> 
+            }
          </div>
       </CSSTransition>
   )
