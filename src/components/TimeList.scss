@@ -55,6 +55,12 @@
       min-height: 2.4rem;
    }
 
+   &__supplemental {
+      display: flex;
+      justify-content: end;
+      gap: 8px;
+   }
+
    &__options {
       cursor: pointer;
       flex-shrink: 1;

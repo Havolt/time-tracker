@@ -7,9 +7,12 @@ function TimeListItem({ key, description, time }) {
    const nodeRef = useRef()
 
    const [isHovered, setIsHovered] = useState(false)
+   const [isExpanded, setIsExpanded] = useState(false)
+
+   const highlightedItem = isHovered || isExpanded
 
    const openOptions = () => {
-      console.log('open options');
+      setIsExpanded((prevState) => !prevState)
    }
 
    return (
@@ -21,7 +24,7 @@ function TimeListItem({ key, description, time }) {
       >
          <div
             ref={nodeRef}
-            className={`time-list__item ${isHovered ? 'time-list__item--hover' : ''}`}
+            className={`time-list__item ${highlightedItem ? 'time-list__item--hover' : ''}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
          >
@@ -30,7 +33,7 @@ function TimeListItem({ key, description, time }) {
                   <span>{description}</span>
                   <div>
                      <span>{time}</span>
-                     {isHovered &&
+                     {highlightedItem &&
                         <button
                            onClick={openOptions}
                            className={'time-list__options'}
@@ -40,9 +43,17 @@ function TimeListItem({ key, description, time }) {
                      }
                   </div>
                </div>
-               <div className="time-list__supplemental">
-                  test
-               </div>
+               {isExpanded &&
+                  <div className="time-list__supplemental">
+                     <button>
+                        <FontAwesomeIcon icon={`fa-solid fa-pen-to-square`} />
+                     </button>
+                     <button>
+                        <FontAwesomeIcon icon={`fa-solid fa-eraser`} />
+                     </button>
+                  </div>
+               }
+               
             </div>
 
          </div>
