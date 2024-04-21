@@ -11,6 +11,7 @@ function App() {
 	const [spentTime, setSpentTime] = useState([])
 
 	useEffect(() => {
+		console.log('in effect')
 	  const localStorageTimes = JSON.parse(localStorage.getItem("timeArray"));
 
 	  if(localStorageTimes?.savedTimes) {
@@ -30,11 +31,28 @@ function App() {
 		))
 	}
 
+	// const removeSpentTime = (timePosition) => {
+	// 	console.log(timePosition)
+	// 	const spentTimeCopy = [...spentTime];
+
+	// 	console.log(spentTimeCopy)
+
+	// 	const cleanedSpentTime = spentTimeCopy.splice(timePosition, 1);
+
+	// 	console.log(cleanedSpentTime)
+
+	// 	setSpentTime(cleanedSpentTime);
+	// }
+
+	const removeSpentTime = (timePosition) => {
+		setSpentTime((prevState) => prevState.filter((time, index) => index !== timePosition));
+  };
+
 	return (
 		<div id="app">
 			<SiteHelmet />
 			<SiteHeader />
-			<TimeList savedTimes={spentTime} />
+			<TimeList savedTimes={spentTime} removeSpentTime={removeSpentTime} />
 			<Stopwatch saveSpentTime={saveSpentTime} />
 		</div>
 	)

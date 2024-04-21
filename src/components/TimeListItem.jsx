@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function TimeListItem({ key, description, time }) {
+function TimeListItem({ listIndex, description, time, removeSpentTime }) {
    // TODO: Add an information icon on hover. When clicked the timer expands to show delete and modify buttons.
    const nodeRef = useRef()
 
@@ -49,7 +49,7 @@ function TimeListItem({ key, description, time }) {
                         <FontAwesomeIcon icon={`fa-solid fa-pen-to-square`} />
                      </button>
                      <button>
-                        <FontAwesomeIcon icon={`fa-solid fa-eraser`} />
+                        <FontAwesomeIcon onClick={() => removeSpentTime(listIndex)} icon={`fa-solid fa-eraser`} />
                      </button>
                   </div>
                }
