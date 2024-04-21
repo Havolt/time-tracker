@@ -50,9 +50,14 @@
    &__main {
       display: flex;
       justify-content: space-between;
-      gap: 0.2rem;
+      gap: 1rem;
       width: 100%;
       min-height: 2.4rem;
+
+      div {
+         display: flex;
+         gap: 0.4rem;
+      }
    }
 
    &__supplemental {
