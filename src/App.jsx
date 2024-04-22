@@ -12,8 +12,8 @@ function App() {
 
 	const firstUpdate = useRef(true);
 
+	// On initial render grab any times in local storage
 	useEffect(() => {
-		console.log('in effect')
 	  const localStorageTimes = JSON.parse(localStorage.getItem("timeArray"));
 
 	  if(localStorageTimes?.savedTimes) {
@@ -21,12 +21,13 @@ function App() {
 	  }
 	}, [])
 
+	// Update Local Storage to be synced to state
 	useEffect(() => {
 		if (firstUpdate.current) {
 			firstUpdate.current = false;
 			return;
 		}
-		console.log('useEffectUpdateListStorage')
+
 		saveUpdatedStorageList();
 	}, [spentTime])
 	
@@ -47,17 +48,24 @@ function App() {
 	};
 
   const saveUpdatedStorageList = () => {
-	console.log({spentTime});
 	localStorage.setItem("timeArray", JSON.stringify(
 		{ savedTimes: [...spentTime] }
 	))
+  }
+
+  const editTime = (timePosition) => {
+	console.log({timePosition})
   }
 
 	return (
 		<div id="app">
 			<SiteHelmet />
 			<SiteHeader />
-			<TimeList savedTimes={spentTime} removeSpentTime={removeSpentTime} />
+			<TimeList 
+				savedTimes={spentTime} 
+				removeSpentTime={removeSpentTime} 
+				editTime={editTime} 
+			/>
 			<Stopwatch saveSpentTime={saveSpentTime} />
 		</div>
 	)

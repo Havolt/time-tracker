@@ -7,10 +7,8 @@ import { TransitionGroup } from 'react-transition-group';
 import './TimeList.scss'
 
 
-function TimeList({ savedTimes, removeSpentTime }) {
-
-  console.log('TimeList render')
-  console.log(savedTimes)
+function TimeList({ savedTimes, removeSpentTime, editTime }) {
+  console.log({savedTimes})
 
   return (
     <div className="time-list">
@@ -22,6 +20,7 @@ function TimeList({ savedTimes, removeSpentTime }) {
             description={savedTime.description}
             time={formatHumanReadableTime(savedTime.time)}
             removeSpentTime={removeSpentTime}
+            editTime={editTime}
           />
         ))}
       {/* </TransitionGroup> */}
