@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import SiteHelmet from './components/SiteHelmet'
 import TimeList from './components/TimeList'
@@ -10,6 +10,8 @@ import './App.scss'
 function App() {
 	const [spentTime, setSpentTime] = useState([])
 
+	const firstUpdate = useRef(true);
+
 	useEffect(() => {
 		console.log('in effect')
 	  const localStorageTimes = JSON.parse(localStorage.getItem("timeArray"));
@@ -18,6 +20,15 @@ function App() {
 		setSpentTime(localStorageTimes.savedTimes)
 	  }
 	}, [])
+
+	useEffect(() => {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+			return;
+		}
+		console.log('useEffectUpdateListStorage')
+		saveUpdatedStorageList();
+	}, [spentTime])
 	
 
 	const saveSpentTime = (time, description) => {
@@ -31,22 +42,16 @@ function App() {
 		))
 	}
 
-	// const removeSpentTime = (timePosition) => {
-	// 	console.log(timePosition)
-	// 	const spentTimeCopy = [...spentTime];
+	const removeSpentTime = async (timePosition) => {
+		await setSpentTime((prevState) => prevState.filter((time, index) => index !== timePosition));
+	};
 
-	// 	console.log(spentTimeCopy)
-
-	// 	const cleanedSpentTime = spentTimeCopy.splice(timePosition, 1);
-
-	// 	console.log(cleanedSpentTime)
-
-	// 	setSpentTime(cleanedSpentTime);
-	// }
-
-	const removeSpentTime = (timePosition) => {
-		setSpentTime((prevState) => prevState.filter((time, index) => index !== timePosition));
-  };
+  const saveUpdatedStorageList = () => {
+	console.log({spentTime});
+	localStorage.setItem("timeArray", JSON.stringify(
+		{ savedTimes: [...spentTime] }
+	))
+  }
 
 	return (
 		<div id="app">
