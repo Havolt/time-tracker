@@ -48,20 +48,23 @@ function TimeListItem({ listIndex, description, time, removeSpentTime, editTime 
                </div>
             </div>
             {isExpanded &&
-               <div className="time-list__supplemental">
-                  <button>
-                     <FontAwesomeIcon  
-                        onClick={() => editTime(listIndex)} 
-                        icon={`fa-solid fa-pen-to-square`} 
-                     />
-                  </button>
-                  <button>
-                     <FontAwesomeIcon 
-                        onClick={() => removeSpentTime(listIndex)} 
-                        icon={`fa-solid fa-eraser`} 
-                     />
-                  </button>
-               </div>
+               <>
+                  <div className="time-list__divider" />
+                  <div className="time-list__supplemental">
+                     <button>
+                        <FontAwesomeIcon  
+                           onClick={() => editTime(listIndex)} 
+                           icon={`fa-solid fa-pen-to-square`} 
+                        />
+                     </button>
+                     <button>
+                        <FontAwesomeIcon 
+                           onClick={() => removeSpentTime(listIndex)} 
+                           icon={`fa-solid fa-eraser`} 
+                        />
+                     </button>
+                  </div>
+               </>
             }
             
          </div>

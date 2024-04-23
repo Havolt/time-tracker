@@ -26,7 +26,7 @@
       &--hover {
          &:nth-child(odd),
          &:nth-child(even) {
-            background-color: #202020;
+            background-color: #171717;
          }
       }
    }
@@ -35,6 +35,8 @@
       width: 100%;
       display: flex;
       flex-direction: column;
+      gap: 1px;
+      padding: 0 0.2rem;
    }
 
    &__main {
@@ -48,6 +50,13 @@
          display: flex;
          gap: 0.4rem;
       }
+   }
+
+   &__divider {
+      height: 1px;
+      width: 94%;
+      background-color: rgb(85, 85, 85);
+      align-self: center;
    }
 
    &__supplemental {
