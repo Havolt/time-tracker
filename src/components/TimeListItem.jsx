@@ -16,54 +16,57 @@ function TimeListItem({ listIndex, description, time, removeSpentTime, editTime 
    }
 
    return (
-      <CSSTransition
-         in={true}
-         nodeRef={nodeRef}
-         timeout={200}
-         classNames="time-list__item"
+      <div
+         className={`time-list__item ${highlightedItem ? 'time-list__item--hover' : ''}`}
+         onMouseEnter={() => setIsHovered(true)}
+         onMouseLeave={() => setIsHovered(false)}
       >
-         <div
-            ref={nodeRef}
-            className={`time-list__item ${highlightedItem ? 'time-list__item--hover' : ''}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-         >
-            <div className="time-list__full">
-               <div className="time-list__main">
-                  <span>{description}</span>
-                  <div>
-                     <span>{time}</span>
+         <div className="time-list__full">
+            <div className="time-list__main">
+               <span>{description}</span>
+               <div>
+                  <span>{time}</span>
+                  
                      {highlightedItem &&
-                        <button
-                           onClick={openOptions}
-                           className={'time-list__options'}
+                        <CSSTransition
+                           in={true}
+                           nodeRef={nodeRef}
+                           timeout={200}
+                           classNames="time-list__options"
+                           appear={true}
                         >
-                           <FontAwesomeIcon icon={`fa-solid fa-ellipsis`} />
-                        </button>
+                           <button
+                              ref={nodeRef}
+                              onClick={openOptions}
+                              className={'time-list__options'}
+                           >
+                              <FontAwesomeIcon icon={`fa-solid fa-ellipsis`} />
+                           </button>
+                        </CSSTransition>
                      }
-                  </div>
+                  
                </div>
-               {isExpanded &&
-                  <div className="time-list__supplemental">
-                     <button>
-                        <FontAwesomeIcon  
-                           onClick={() => editTime(listIndex)} 
-                           icon={`fa-solid fa-pen-to-square`} 
-                        />
-                     </button>
-                     <button>
-                        <FontAwesomeIcon 
-                           onClick={() => removeSpentTime(listIndex)} 
-                           icon={`fa-solid fa-eraser`} 
-                        />
-                     </button>
-                  </div>
-               }
-               
             </div>
-
+            {isExpanded &&
+               <div className="time-list__supplemental">
+                  <button>
+                     <FontAwesomeIcon  
+                        onClick={() => editTime(listIndex)} 
+                        icon={`fa-solid fa-pen-to-square`} 
+                     />
+                  </button>
+                  <button>
+                     <FontAwesomeIcon 
+                        onClick={() => removeSpentTime(listIndex)} 
+                        icon={`fa-solid fa-eraser`} 
+                     />
+                  </button>
+               </div>
+            }
+            
          </div>
-      </CSSTransition>
+
+      </div>
    )
 }
 

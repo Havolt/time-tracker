@@ -4,7 +4,8 @@
    height: 28rem;
    padding: 0.1rem;
    align-items: center;
-   overflow: auto;
+   overflow-x: hidden;
+   overflow-y: auto;
    position: relative;
    
    &__item {
@@ -27,17 +28,6 @@
          &:nth-child(even) {
             background-color: #202020;
          }
-      }
-
-      // Transition
-      &-enter {
-         opacity: 0;
-         transition: opacity 200ms;
-      }
-
-      &-enter-active,
-      &-enter-done {
-         opacity: 1;
       }
    }
 
@@ -72,9 +62,23 @@
       background-color: transparent;
       padding: 0 0.2rem;
       border-color: none;
+      width:0;
 
       &:hover {
          border-color: transparent;
+      }
+
+      // Transition
+      &-appear {
+         width: 0;
+         transition: width 200ms;
+      }
+
+      &-appear-active {
+         width: 20px;
+      }
+      &-appear-done {
+         width: 20px;
       }
    }
 }
