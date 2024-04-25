@@ -101,6 +101,7 @@ function Stopwatch({ saveSpentTime }) {
          disabled={timerPaused}
          className="timer__button--clear"
          type="button"
+         title={!timerPaused ? 'Clear Time' : ''}
       >
          <FontAwesomeIcon icon={`fa-solid fa-${stopButtonIcon}`} />
       </button>
@@ -130,6 +131,7 @@ function Stopwatch({ saveSpentTime }) {
                   onClick={handleTimer} 
                   className="timer__button--start"
                   disabled={saveRequested}
+                  title={!saveRequested ? 'Start Timer' : ''}
                >
                   <FontAwesomeIcon icon={`fa-solid fa-${playButtonIcon}`} />
                </button>
@@ -141,6 +143,7 @@ function Stopwatch({ saveSpentTime }) {
                   onClick={saveTimer} 
                   className="timer__button--save"
                   disabled={timerPaused}
+                  title={!timerPaused ? 'Save Time' : ''}
                >
                   <FontAwesomeIcon icon="fa-solid fa-floppy-disk" />
                </button>
