@@ -107,8 +107,6 @@ function Stopwatch({ saveSpentTime }) {
       </button>
    )
 
-   
-
    return (
       <div className="timer">
          <div className="timer__input">
@@ -131,7 +129,7 @@ function Stopwatch({ saveSpentTime }) {
                   onClick={handleTimer} 
                   className="timer__button--start"
                   disabled={saveRequested}
-                  title={!saveRequested ? 'Start Timer' : ''}
+                  title={!timerPlaying ? 'Start Timer' : 'Pause Timer'}
                >
                   <FontAwesomeIcon icon={`fa-solid fa-${playButtonIcon}`} />
                </button>

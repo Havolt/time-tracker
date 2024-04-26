@@ -39,6 +39,7 @@ function TimeListItem({ listIndex, description, time, removeSpentTime, editTime 
                               ref={nodeRef}
                               onClick={openOptions}
                               className={'time-list__options'}
+                              title="Options"
                            >
                               <FontAwesomeIcon icon={`fa-solid fa-ellipsis`} />
                            </button>

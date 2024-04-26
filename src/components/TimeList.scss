@@ -63,6 +63,10 @@
       display: flex;
       justify-content: end;
       gap: 8px;
+
+      button {
+         font-size: 1.4rem;
+      }
    }
 
    &__options {
